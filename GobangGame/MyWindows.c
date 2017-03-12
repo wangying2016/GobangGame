@@ -212,6 +212,7 @@ HRESULT DrawFiveHeavyPoint(HDC hdc, POINT ptLeftTop, int cxClient, int cyClient)
 	return S_OK;
 }
 
+// TODO:实现五子棋的判胜逻辑，预测需要使用最长路径计算算法
 // 判定是否胜利
 HRESULT IsSomeoneWin(int chessPoints[BOARD_CELL_NUM + 1][BOARD_CELL_NUM + 1], int *winner)
 {
