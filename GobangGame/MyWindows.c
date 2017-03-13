@@ -309,7 +309,6 @@ HRESULT _CountSameDiretionPointsNumber(int chessPoints[BOARD_CELL_NUM + 1][BOARD
 	return S_OK;
 }
 
-// TODO:实现五子棋的判胜逻辑，预测需要使用最长路径计算算法
 // 判定是否胜利
 HRESULT IsSomeoneWin(int chessPoints[BOARD_CELL_NUM + 1][BOARD_CELL_NUM + 1], int *winner)
 {
@@ -319,8 +318,10 @@ HRESULT IsSomeoneWin(int chessPoints[BOARD_CELL_NUM + 1][BOARD_CELL_NUM + 1], in
 			if (chessPoints[row][col] != NULL_FLAG) {
 				POINT point = { row, col };
 				for (size_t direction = 0; direction < 8; ++direction) {
+					// 获取当前点此方向的最大同类棋子数
 					int count = 0;
 					_CountSameDiretionPointsNumber(chessPoints, point, direction, &count);
+					// 判定是否胜利
 					if (count >= 5) {
 						if (chessPoints[row][col] == BLACK_FLAG) {
 							MessageBox(NULL, TEXT("黑棋获胜！"), TEXT("提示"), MB_OK);
@@ -333,7 +334,6 @@ HRESULT IsSomeoneWin(int chessPoints[BOARD_CELL_NUM + 1][BOARD_CELL_NUM + 1], in
 			}
 		}
 	}
-
 
 	return S_OK;
 }
@@ -432,6 +432,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 		return 0;
 
 	case WM_MBUTTONDOWN:	// 初始化棋盘
+		for (int row = 0; row < BOARD_CELL_NUM + 1; ++row) {
+			for (int col = 0; col < BOARD_CELL_NUM + 1; ++col) {
+				chessPoints[row][col] = 0;
+			}
+		}
 		InvalidateRect(hwnd, NULL, TRUE);
 		return 0;
 
