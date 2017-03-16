@@ -153,7 +153,7 @@ HRESULT _ExChangeLogicalPosition(POINT actualPostion, POINT ptLeftTop, int cxCli
 		xCount += 1;
 	} 
 	else if (2 == shortestIndex) {
-		yCount += 1;
+		yCount += 1; 
 	}
 	else if (3 == shortestIndex) {
 		xCount += 1;
